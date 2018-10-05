@@ -1,3 +1,5 @@
+import Items.Instruments.Guitar;
+import Items.Instruments.Instrument;
 import interfaces.ISell;
 
 import java.util.ArrayList;
@@ -26,5 +28,33 @@ public class Shop {
 
     public void removeItemFromStock(ISell item){
         stock.remove(item);
+    }
+
+    public double calculatePotentialProfit() {
+        double total = 0;
+        for (ISell item : stock){
+            total += item.calculateMarkup();
+        }
+        return total;
+    }
+
+    public int totalInstrumentsInStock() {
+        int total = 0;
+        for (ISell item : stock){
+            if (item instanceof Instrument){
+                total += 1;
+            }
+        }
+        return total;
+    }
+
+    public int numberOfItemsInStockByType(ISell itemOfRequiredType){
+        int total = 0;
+        for (ISell item : stock){
+            if (item.getClass() == itemOfRequiredType.getClass()){
+                total += 1;
+            }
+        }
+        return total;
     }
 }
